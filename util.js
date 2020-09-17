@@ -1,3 +1,5 @@
+const CONFIG=require('./config');
+
 function hasprop(o,p) {
  if(!o) return false;
  if(o[p]) return true;
@@ -7,6 +9,9 @@ function hasprop(o,p) {
 
 
 module.exports= {
+ mysql: require('./mysql')({
+  config: CONFIG.mysql
+ }),
  params: {
   setup: function(req,res,cb) {
    if(!req.USERDATA) req.USERDATA = {};
