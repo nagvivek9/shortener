@@ -17,6 +17,12 @@ app.use(U.params.setup);
 app.use('/api',require('./api.js'));
 app.use(EXPRESS.static(htdocsdir));
 
+
+app.use(function(req,res,cb) { 
+ const api_path = (req.originalUrl||req.url||'').replace(/\?.*/,'');
+ cb(`missing link — ${api_path}`);
+});
+
 const server= HTTP.createServer(app);
 server.listen(3000,function(){
  console.log(`HTTP server listening on the port ${3000}`);
