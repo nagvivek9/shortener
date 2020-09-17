@@ -1,7 +1,26 @@
 const R=require('express').Router({caseSensitive:true});
+const U=require('./util');
 
-R.all('/',function(req,res,cb){
- res.write('API route'),res.end();
+R.all('/shorten',function(req,res,cb){
+ const url=req.USERDATA.P('url');
+ if(!url) return res.json({status: 'data'});
+ const s=U.random({l:5});
+ const ua = req.get && req.get('User-Agent')||'unknown';
+ const ip = (REQUESTIP.getClientIp(req)||':').split(':').pop()||'unknown';
+ mysql.Q(`
+  INSERT INTO shorten (original,shorten,ip,ua,date_created) 
+  VALUES (:original,:shorten,:ip,:ua,now())
+ `,
+ {
+  original: url,
+  shorten:s,
+  ip,
+  ua
+ },(e,r)=>{
+  if(e) return res.json({status:'error', message:e});
+  if(!r.insertId) return cb(new Error('Something went wrong!!'));
+  res.json({status:'ok',url:s});
+ });
 });
 
 module.exports = R;
