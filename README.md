@@ -4,10 +4,11 @@ The application that can shorten the given URL
 # Instructions to run the application
 
 1. You need to configure the database creadentials in config.js
-2. You need to build the web app (forntend). For this, Navigate to htdocs/ui-shortener and then
-   run the command : npm run build. It will build the react app
-3. Then in the root folder run the command: npm start. It will start the node application.
-4. You can test the APIs using command: npm run test. These tests are implemented on Mocha and chai package.
+2. You need to run the command: `npm install` at root path and also in `htdocs/ui-shortener`
+3. You need to build the web app (forntend). For this, Navigate to `htdocs/ui-shortener` and then
+   run the command : `npm run build`. It will build the react app
+4. Then in the root folder run the command: `npm start`. It will start the node application.
+5. You can test the APIs using command: `npm run test`. These tests are implemented on Mocha and chai package.
 
 
 
