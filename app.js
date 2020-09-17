@@ -1,6 +1,7 @@
 const HTTP = require('http');
 const BODYPARSER = require('body-parser');
 const PATH = require('path');
+const ASYNC=require('async');
 const EXPRESS = require('express');
 const app = EXPRESS();
 const U=require('./util');
@@ -22,13 +23,13 @@ app.all('/:id',function(req,res,cb){
  if(!id) return res.write('oops');
  ASYNC.parallel({
   clicks: function clicks(cb) {
-   mysql.Q(`
+   U.mysql.Q(`
     UPDATE shorten SET clicks=clicks+1 WHERE shorten=:s LIMIT 1
    `,
    {s:id},cb);  
   },
   geturl: function geturl(cb) {
-   mysql.Q(`
+   U.mysql.Q(`
     SELECT original,date_created > NOW()-INTERVAL 30 DAY AS alive
     FROM shorten
     WHERE shorten=:s LIMIT 1
