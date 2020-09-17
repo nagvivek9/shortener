@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/nagvivek9/shortener/issues"
   },
-  "homepage": "https://github.com/nagvivek9/shortener#readme"
+  "homepage": "https://github.com/nagvivek9/shortener#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "0.0.1-security"
+  }
 }
