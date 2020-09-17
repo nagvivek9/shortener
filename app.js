@@ -17,6 +17,38 @@ app.use(U.params.setup);
 app.use('/api',require('./api.js'));
 app.use(EXPRESS.static(htdocsdir));
 
+app.all('/:id',function(req,res,cb){
+ const id=req.USERDATA.P('id');
+ if(!id) return res.write('oops');
+ ASYNC.parallel({
+  clicks: function clicks(cb) {
+   mysql.Q(`
+    UPDATE shorten SET clicks=clicks+1 WHERE shorten=:s LIMIT 1
+   `,
+   {s:id},cb);  
+  },
+  geturl: function geturl(cb) {
+   mysql.Q(`
+    SELECT original,date_created > NOW()-INTERVAL 30 DAY AS alive
+    FROM shorten
+    WHERE shorten=:s LIMIT 1
+   `,
+   {s:id},(e,r)=>{
+    if(e) return cb(e);
+    if(!r.length) return cb(null,'Not found');
+    if(!r[0].alive) return cb(null, 'Link expired');
+    cb(null,{url:r[0].original}); 
+   });  
+  }
+ },(e,r)=>{
+  if(e) return cb(e);
+  if(r.geturl) {
+   if(typeof r.geturl==='string') return res.writeHead(404, {'Content-Type': 'text/html'}),res.write(r.geturl),res.end();
+   else res.redirect(301,r.geturl.url),res.end();
+  }
+  else res.writeHead(404, {'Content-Type': 'text/html'}),res.write('Not found'),res.end();
+ });
+});
 
 app.use(function(req,res,cb) { 
  const api_path = (req.originalUrl||req.url||'').replace(/\?.*/,'');
