@@ -18,6 +18,29 @@ app.use(U.params.setup);
 app.use('/api',require('./api.js'));
 app.use(EXPRESS.static(htdocsdir));
 
+app.all('/stats',function(req,res,cb){
+ U.mysql.Q(`
+  SELECT 
+   original,shorten,ip,ua,clicks
+  FROM shorten
+  ORDER BY id DESC LIMIT 20
+ `,
+ {},(e,r)=>{
+  if(e) return cb(e);
+  var html=r.reduce((p,c)=>{
+   p+=`</br></br><h2>${c.original}</h2>
+     <div>${c.shorten}<div>
+     </br></br>
+     <div>Total clicks: ${c.clicks}</div>
+     <div>ip: ${c.ip}</div>
+    `;
+   return p;
+  },'');
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write(html||'No data');
+  res.end();
+ });
+});
 app.all('/:id',function(req,res,cb){
  const id=req.USERDATA.P('id');
  if(!id) return res.write('oops');
