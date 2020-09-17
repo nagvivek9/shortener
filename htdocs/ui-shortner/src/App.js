@@ -36,6 +36,13 @@ class App extends React.Component {
     <input type="text" id="txt_url" value={this.state.txt_url} onChange={this.handleChange.bind(this)}/>
     <input type="button" value="SHORTEN" onClick={this.shortenit.bind(this)}/>
     </div>
+    <br></br>
+    {this.state.shorten_url!=''&&(
+     <div>
+      <div>Here's your short URL!</div>
+      <a href={this.state.shorten_url}>{this.state.shorten_url}</a>
+     </div>
+    )}
    </div>
  );
  }
