@@ -1,0 +1,19 @@
+{
+  "name": "shortener",
+  "version": "1.0.0",
+  "description": "Utility that can shorten the given URL",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nagvivek9/shortener.git"
+  },
+  "author": "Nagendra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nagvivek9/shortener/issues"
+  },
+  "homepage": "https://github.com/nagvivek9/shortener#readme"
+}
