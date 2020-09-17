@@ -24,5 +24,14 @@ module.exports= {
    };
    cb();
   }
+ },
+ random: function(pp) {
+  if(!pp) return (Math.random()*8999+1000+'').substring(0,4);
+  var text = "";
+  var chars=pp.c||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var l=pp.l||20;
+  for (let i = 0; i < l; i++)
+   text +=chars.charAt(Math.floor(Math.random() * chars.length));
+  return text;
  }
 };
