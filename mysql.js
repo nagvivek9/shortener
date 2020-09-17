@@ -38,6 +38,15 @@ module.exports = function(o) {
  return {
   C: function(n,cb) {
    return conn(n,cb);
+  },
+  Q: function(q,p,cb) {
+   conn(null,function(e,C) {
+    if(e) return cb(e);
+    C.Q(q,p,function(e,r) {
+     C.release();
+     cb(e,r);
+    });
+   });
   }
  };
 };
