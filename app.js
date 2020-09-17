@@ -14,6 +14,7 @@ app.use(function(req,res,cb) {
 app.use(BODYPARSER.urlencoded({extended:true})).use(BODYPARSER.json());
 app.use(U.params.setup);
 
+app.use('/api',require('./api.js'));
 app.use(EXPRESS.static(htdocsdir));
 
 const server= HTTP.createServer(app);
