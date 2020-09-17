@@ -5,7 +5,7 @@ const EXPRESS = require('express');
 const app = EXPRESS();
 const U=require('./util');
 
-const htdocsdir = PATH.join(__dirname,'htdocs');
+const htdocsdir = PATH.join(__dirname,'htdocs','ui-shortner','build');
 app.use(function(req,res,cb) {
  res.set('Access-Control-Allow-Origin','*');
  cb();
