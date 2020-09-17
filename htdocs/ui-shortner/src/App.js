@@ -8,10 +8,18 @@ class App extends React.Component {
  }
  render() {
   return (
-    <div className="App">
-      Hello world
+   <div className="App">
+    <h3>
+      Welcome to short.com
+    </h3>
+    <br></br>
+    <div>Please enter your URL here</div>
+    <div id="container_url">
+     <input type="text" id="txt_url"/>
+     <input type="button" value="SHORTEN"/>
     </div>
-  );
+   </div>
+ );
  }
 }
 
