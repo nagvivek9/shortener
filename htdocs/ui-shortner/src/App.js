@@ -6,15 +6,18 @@ class App extends React.Component {
   super(props);
   this.props=props;
   this.state={
-   txt_url:''
+   txt_url:'',
+   shorten_url:''
   };
  }
 
  shortenit() {
   if(!this.state.txt_url||(this.state.txt_url.indexOf('http://')==-1&&this.state.txt_url.indexOf('https://')==-1))
    return alert('Invalid URL, Should have http(s) in the URL');
-
-  console.log('Now we can go for API call');
+   fetch(`http://localhost:3000/api/shorten/?url=${this.state.txt_url}`).then(res=>res.json())
+   .then(res => ((res.status&&res.status==='ok') ? res : Promise.reject(res)))
+   .then(res=>this.setState({shorten_url:res.url}))
+   .catch(reason=>console.error(reason));
  };
 
  handleChange = ({ target }) => {
