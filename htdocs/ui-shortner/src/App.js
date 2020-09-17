@@ -10,6 +10,13 @@ class App extends React.Component {
   };
  }
 
+ shortenit() {
+  if(!this.state.txt_url||(this.state.txt_url.indexOf('http://')==-1&&this.state.txt_url.indexOf('https://')==-1))
+   return alert('Invalid URL, Should have http(s) in the URL');
+
+  console.log('Now we can go for API call');
+ };
+
  handleChange = ({ target }) => {
   this.setState({ txt_url: target.value });
  };
@@ -24,7 +31,7 @@ class App extends React.Component {
     <div>Please enter your URL here</div>
     <div id="container_url">
     <input type="text" id="txt_url" value={this.state.txt_url} onChange={this.handleChange.bind(this)}/>
-     <input type="button" value="SHORTEN"/>
+    <input type="button" value="SHORTEN" onClick={this.shortenit.bind(this)}/>
     </div>
    </div>
  );
